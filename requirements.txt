@@ -1,0 +1,4 @@
+# Core dependencies for Rigol DP832 Ethernet control
+pyvisa>=1.14.0
+pyvisa-py>=0.7.0
+
