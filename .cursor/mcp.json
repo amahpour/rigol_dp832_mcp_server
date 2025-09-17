@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "rigol-dp832": {
+      "command": "python3",
+      "args": ["mcp_rigol_dp832.py"],
+      "env": {
+        "RIGOL_DP832_IP": "192.168.68.140",
+        "RIGOL_DP832_PORT": "5555"
+      }
+    }
+  }
+}
