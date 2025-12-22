@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rigol-dp832-mcp-server"
+version = "0.1.0"
+description = "MCP Server for the Rigol DP832 Power Supply"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+    {name = "amahpour"}
+]
+keywords = ["rigol", "dp832", "power-supply", "mcp", "visa", "scpi"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Interface Engine/Protocol Translator",
+]
+dependencies = [
+    "pyvisa>=1.11.0",
+    "fastmcp>=2.10.6",
+]
+
+[project.urls]
+Homepage = "https://github.com/amahpour/rigol_dp832_mcp_server"
+Repository = "https://github.com/amahpour/rigol_dp832_mcp_server"
+Issues = "https://github.com/amahpour/rigol_dp832_mcp_server/issues"
+
+[project.scripts]
+rigol-dp832-mcp = "mcp_rigol_dp832:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["rigol_dp832*"]
+
+[tool.setuptools]
+py-modules = ["mcp_rigol_dp832"]
+

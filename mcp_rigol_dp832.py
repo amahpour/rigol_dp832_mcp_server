@@ -955,6 +955,11 @@ def get_ovp_alarm(channel: int) -> Dict[str, Any]:
         }
 
 
+def main():
+    """Entry point for the MCP server."""
+    mcp.run()
+
+
 if __name__ == "__main__":
     # Start the MCP server when run directly
-    mcp.run()
+    main()

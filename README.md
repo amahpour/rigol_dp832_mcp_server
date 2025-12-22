@@ -20,15 +20,35 @@ A Python library and Model Context Protocol (MCP) server for controlling Rigol D
 
 ## Installation
 
+### Option 1: Install via pip (Recommended)
+
+Install directly from GitHub:
+
+```bash
+pip install git+https://github.com/amahpour/rigol_dp832_mcp_server.git
+```
+
+### Option 2: Clone and Install
+
 1. Clone this repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/amahpour/rigol_dp832_mcp_server.git
 cd rigol_dp832_mcp_server
 ```
 
-2. Install dependencies:
+2. Install the package:
 ```bash
-pip install -r requirements.txt
+pip install .
+```
+
+### Option 3: Development Install
+
+For development with editable mode:
+
+```bash
+git clone https://github.com/amahpour/rigol_dp832_mcp_server.git
+cd rigol_dp832_mcp_server
+pip install -e .
 ```
 
 ## Quick Start
