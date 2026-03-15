@@ -102,28 +102,58 @@ ps.close()
 
 This repository includes a Model Context Protocol (MCP) server that allows AI agents to directly control your Rigol power supply. The MCP server provides a comprehensive set of tools for device discovery, connection management, channel control, measurements, and protection settings.
 
-### Starting the MCP Server
+### 1. Install Dependencies
 
-1. **Install dependencies** (if not already done):
+Before running the MCP server, install the required Python packages:
+
+```bash
+pip install pyvisa fastmcp
+```
+
+Or install from the requirements file:
+
 ```bash
 pip install -r requirements.txt
 ```
 
-2. **Start the MCP server**:
+Or install the package itself (which pulls in all dependencies):
+
 ```bash
-python mcp_rigol_dp832.py
+pip install git+https://github.com/amahpour/rigol_dp832_mcp_server.git
 ```
 
-### Using with Cursor IDE
+### 2. Add the MCP Server to Your Client
 
-The repository includes a `.cursor/mcp.json` configuration file that automatically configures the MCP server for use with Cursor IDE. **You need to update the IP address** in this file to match your power supply:
+Add the following to your MCP client configuration. Replace `/path/to/rigol_dp832_mcp_server` with the actual path where you cloned the repository.
+
+**Cursor** (`~/.cursor/mcp.json`):
 
 ```json
 {
   "mcpServers": {
     "rigol-dp832": {
       "command": "python3",
-      "args": ["mcp_rigol_dp832.py"],
+      "args": ["/path/to/rigol_dp832_mcp_server/mcp_rigol_dp832.py"],
+      "env": {}
+    }
+  }
+}
+```
+
+**Claude Code** (run this command):
+
+```bash
+claude mcp add --transport stdio rigol-dp832 -s user -- python3 /path/to/rigol_dp832_mcp_server/mcp_rigol_dp832.py
+```
+
+You can optionally set a static IP address and port via environment variables instead of relying on auto-discovery:
+
+```json
+{
+  "mcpServers": {
+    "rigol-dp832": {
+      "command": "python3",
+      "args": ["/path/to/rigol_dp832_mcp_server/mcp_rigol_dp832.py"],
       "env": {
         "RIGOL_DP832_IP": "192.168.1.100",
         "RIGOL_DP832_PORT": "5555"
@@ -134,31 +164,19 @@ The repository includes a `.cursor/mcp.json` configuration file that automatical
 ```
 
 **Configuration Options:**
-- `RIGOL_DP832_IP`: IP address of your power supply (required)
+- `RIGOL_DP832_IP`: IP address of your power supply (optional — uses auto-discovery if not set)
 - `RIGOL_DP832_PORT`: Port number (default: 5555)
 
-**If you don't configure an IP address**, the server will attempt auto-discovery as a fallback.
+### 3. Restart Your Client
 
-### Configuration Approach
+Restart Cursor or Claude Code for the new MCP server to be picked up.
 
-The MCP server uses a **configuration-first approach**:
-
-1. **Primary**: Use the IP address configured in `.cursor/mcp.json` (recommended)
-2. **Fallback**: Auto-discovery if no IP is configured
-3. **Override**: Provide specific IP/port parameters to individual tools
-
-This design ensures:
-- **Reliability**: No need for discovery on every connection
-- **Performance**: Faster connections using pre-configured IP
-- **Flexibility**: Auto-discovery available when needed
-- **Simplicity**: Most tools work without parameters
-
-Once configured, you can interact with your power supply through natural language commands in Cursor, such as:
+Once configured, you can interact with your power supply through natural language commands such as:
 - "Connect to the power supply"
 - "Set channel 1 to 5V and 1A"
 - "Enable output on channel 1"
 - "Measure the voltage and current on channel 1"
-- "Discover available power supplies on the network" (for auto-discovery)
+- "Discover available power supplies on the network"
 
 ### Available MCP Tools
 

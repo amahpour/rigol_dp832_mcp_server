@@ -1,0 +1,6 @@
+# Ignore .cursor directory by default
+.cursor/
+
+# But allow mcp.json to be analyzed
+!.cursor/mcp.json
+
